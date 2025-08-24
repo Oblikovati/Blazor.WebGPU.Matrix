@@ -1,0 +1,12 @@
+﻿@using SpawnDev.Blazor.UnitTesting
+@using System.Reflection
+
+@page "/"
+
+<UnitTestsView TestAssemblies="_assemblies"></UnitTestsView>
+
+@code {
+    IEnumerable<Assembly>? _assemblies = new List<Assembly> {
+        typeof(Blazor.WebGPU.Matrix.Tests.Float.Vec2FloatTests).Assembly
+    };
+}
