@@ -18,6 +18,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>Vinicius Miguel</Copyright>
     <Description>Fast 3D Math library for WebGPU</Description>
+    <ApplicationIcon>wwwroot\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
 
@@ -36,10 +37,6 @@
   
   <ItemGroup>
     <PackageReference Include="SpawnDev.BlazorJS" Version="2.24.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
