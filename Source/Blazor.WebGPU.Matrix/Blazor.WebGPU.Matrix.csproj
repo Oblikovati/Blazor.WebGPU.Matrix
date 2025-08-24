@@ -19,6 +19,7 @@
     <Copyright>Vinicius Miguel</Copyright>
     <Description>Fast 3D Math library for WebGPU</Description>
     <ApplicationIcon>wwwroot\icon.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
 
