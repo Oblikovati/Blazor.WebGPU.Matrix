@@ -5,21 +5,19 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
     [TestClass]
     public class Vec3FloatTests 
     {
-        private const float EPSILON = 0.000001f;
-
-        private void AssertEqualApproximately(Vec3 a, Vec3 b)
+        private void AssertEqualApproximately(Vec3 a, Vec3 b, float range = 0.0000001f)
         {
-            Assert.True(MathF.Abs(a[0] - b[0]) < EPSILON);
-            Assert.True(MathF.Abs(a[1] - b[1]) < EPSILON);
-            Assert.True(MathF.Abs(a[2] - b[2]) < EPSILON);
+            Assert.True(MathF.Abs(a[0] - b[0]) < range, $"Expected {b[0]} but got {a[0]} at index 0");
+            Assert.True(MathF.Abs(a[1] - b[1]) < range, $"Expected {b[1]} but got {a[1]} at index 1");
+            Assert.True(MathF.Abs(a[2] - b[2]) < range, $"Expected {b[2]} but got {a[2]} at index 2");
         }
 
-        private void AssertEqualApproximately(float a, float b)
+        private void AssertEqualApproximately(float a, float b, float range = 0.0000001f)
         {
-            Assert.True(MathF.Abs(a - b) < EPSILON);
+            Assert.True(MathF.Abs(a - b) < range, $"Expected {b} but got {a}");
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Add()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -37,7 +35,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Angle()
         {
             var tests = new[]
@@ -61,7 +59,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Ceil()
         {
             var input = Vec3.Create(1.1f, -1.1f, 2.9f);
@@ -78,7 +76,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Floor()
         {
             var input = Vec3.Create(1.1f, -1.1f, 2.9f);
@@ -95,7 +93,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Round()
         {
             var input = Vec3.Create(1.1f, -1.1f, 2.9f);
@@ -112,7 +110,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Clamp()
         {
             // Test case 1
@@ -144,12 +142,12 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2b, expected2);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Equals_Approximately()
         {
             var a = Vec3.Create(1, 2, 3);
             var b = Vec3.Create(1, 2, 3);
-            var c = Vec3.Create(1 + EPSILON * 0.5f, 2, 3);
+            var c = Vec3.Create(1 + (float.Epsilon * 0.1f), 2, 3);
             var d = Vec3.Create(1.001f, 2, 3);
 
             Assert.True(Vec3.EqualsApproximately(a, b));
@@ -157,18 +155,18 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.False(Vec3.EqualsApproximately(a, d));
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Equals()
         {
-            var a = Vec3.Create(1, 2, 3);
-            var b = Vec3.Create(1, 2, 3);
-            var c = Vec3.Create(1 + EPSILON * 0.5f, 2, 3);
+            var a = Vec3.Create(1f, 2f, 3f);
+            var b = Vec3.Create(1f, 2f, 3f);
+            var c = Vec3.Create(1f + Utils.EPSILON * 0.5f, 2f, 3f);
 
             Assert.True(Vec3.Equals(a, b));
             Assert.False(Vec3.Equals(a, c));
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Subtract()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -186,7 +184,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Sub()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -204,7 +202,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Lerp()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -222,7 +220,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Lerp_Under_0()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -240,7 +238,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Lerp_Over_0()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -258,7 +256,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Multiply_By_Scalar()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -275,7 +273,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Scale()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -292,7 +290,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Add_Scaled()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -310,7 +308,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Divide_By_Scalar()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -327,7 +325,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Inverse()
         {
             var a = Vec3.Create(2, 3, -4);
@@ -344,7 +342,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Cross()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -366,7 +364,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Dot_Product()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -377,7 +375,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Length()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -387,7 +385,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Length_Squared()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -397,7 +395,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Len()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -407,7 +405,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Len_Sq()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -417,7 +415,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Distance()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -428,7 +426,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Distance_Squared()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -439,7 +437,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Dist()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -450,7 +448,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Compute_Dist_Squared()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -461,7 +459,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Normalize()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -479,7 +477,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Negate()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -496,7 +494,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Copy()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -514,7 +512,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Clone()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -532,7 +530,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Set()
         {
             var expected = Vec3.Create(2, 3, 4);
@@ -548,7 +546,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Multiply()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -566,7 +564,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Mul()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -584,7 +582,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Divide()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -602,7 +600,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Div()
         {
             var a = Vec3.Create(1, 2, 3);
@@ -620,7 +618,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result2, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_From_Values()
         {
             var expected = Vec3.Create(1, 2, 3);
@@ -628,28 +626,28 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result, expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Random()
         {
             for (int i = 0; i < 10; ++i) // Reduced iterations for testing
             {
                 var v1 = Vec3.Random();
-                AssertEqualApproximately(Vec3.Length(v1), 1);
+                AssertEqualApproximately(Vec3.Length(v1), 1, 1e-06f);
 
                 var v2 = Vec3.Random(2);
-                AssertEqualApproximately(Vec3.Length(v2), 2);
+                AssertEqualApproximately(Vec3.Length(v2), 2, 1e-06f);
 
                 var vp5 = Vec3.Random(0.5f);
-                AssertEqualApproximately(Vec3.Length(vp5), 0.5f);
+                AssertEqualApproximately(Vec3.Length(vp5), 0.5f, 1e-06f);
 
                 var vd = Vec3.Create();
                 var vn = Vec3.Random(3, vd);
                 Assert.Same(vd, vn);
-                AssertEqualApproximately(Vec3.Length(vd), 3);
+                AssertEqualApproximately(Vec3.Length(vd), 3, 1e-06f);
             }
         }
 
-        //[TestMethod]
+        //[Fact]
         //public void Should_Transform_By_Mat3()
         //{
         //    var v = Vec3.Create(1, 2, 3);
@@ -672,7 +670,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
         //    AssertEqualApproximately(result2, expected);
         //}
 
-        //[TestMethod]
+        //[Fact]
         //public void Should_Transform_By_Mat4()
         //{
         //    var v = Vec3.Create(1, 2, 3);
@@ -696,7 +694,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
         //    AssertEqualApproximately(result2, expected);
         //}
 
-        //[TestMethod]
+        //[Fact]
         //public void Should_Transform_By_Mat4_Upper3x3()
         //{
         //    var v = Vec3.Create(2, 3, 4);
@@ -720,7 +718,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
         //    AssertEqualApproximately(result2, expected);
         //}
 
-        [TestMethod]
+        [Fact]
         public void Should_Zero()
         {
             var v = Vec3.Zero();
@@ -732,7 +730,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(v2, Vec3.Create(0, 0, 0));
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Rotate_X()
         {
             // Rotation around world origin [0, 0, 0]
@@ -741,12 +739,12 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             var expected = Vec3.Create(0, -1, 0);
 
             // Test without destination
-            var result1 = Vec3.RotateX(a, b, MathF.PI);
+            var result1 = Vec3.RotateX(a, b, Math.PI);
             AssertEqualApproximately(result1, expected);
 
             // Test with destination
             var dst = Vec3.Create();
-            var result2 = Vec3.RotateX(a, b, MathF.PI, dst);
+            var result2 = Vec3.RotateX(a, b, Math.PI, dst);
             Assert.Same(dst, result2);
             AssertEqualApproximately(result2, expected);
 
@@ -756,17 +754,17 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             var expected2 = Vec3.Create(2, 3, 0);
 
             // Test without destination
-            var result3 = Vec3.RotateX(a2, b2, MathF.PI);
+            var result3 = Vec3.RotateX(a2, b2, Math.PI);
             AssertEqualApproximately(result3, expected2);
 
             // Test with destination
             var dst2 = Vec3.Create();
-            var result4 = Vec3.RotateX(a2, b2, MathF.PI, dst2);
+            var result4 = Vec3.RotateX(a2, b2, Math.PI, dst2);
             Assert.Same(dst2, result4);
             AssertEqualApproximately(result4, expected2);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Rotate_Y()
         {
             // Rotation around world origin [0, 0, 0]
@@ -775,12 +773,12 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             var expected = Vec3.Create(-1, 0, 0);
 
             // Test without destination
-            var result1 = Vec3.RotateY(a, b, MathF.PI);
+            var result1 = Vec3.RotateY(a, b, Math.PI);
             AssertEqualApproximately(result1, expected);
 
             // Test with destination
             var dst = Vec3.Create();
-            var result2 = Vec3.RotateY(a, b, MathF.PI, dst);
+            var result2 = Vec3.RotateY(a, b, Math.PI, dst);
             Assert.Same(dst, result2);
             AssertEqualApproximately(result2, expected);
 
@@ -790,17 +788,17 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             var expected2 = Vec3.Create(-6, 3, 10);
 
             // Test without destination
-            var result3 = Vec3.RotateY(a2, b2, MathF.PI);
+            var result3 = Vec3.RotateY(a2, b2, Math.PI);
             AssertEqualApproximately(result3, expected2);
 
             // Test with destination
             var dst2 = Vec3.Create();
-            var result4 = Vec3.RotateY(a2, b2, MathF.PI, dst2);
+            var result4 = Vec3.RotateY(a2, b2, Math.PI, dst2);
             Assert.Same(dst2, result4);
             AssertEqualApproximately(result4, expected2);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Rotate_Z()
         {
             // Rotation around world origin [0, 0, 0]
@@ -809,12 +807,12 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             var expected = Vec3.Create(0, -1, 0);
 
             // Test without destination
-            var result1 = Vec3.RotateZ(a, b, MathF.PI);
+            var result1 = Vec3.RotateZ(a, b, Math.PI);
             AssertEqualApproximately(result1, expected);
 
             // Test with destination
             var dst = Vec3.Create();
-            var result2 = Vec3.RotateZ(a, b, MathF.PI, dst);
+            var result2 = Vec3.RotateZ(a, b, Math.PI, dst);
             Assert.Same(dst, result2);
             AssertEqualApproximately(result2, expected);
 
@@ -824,37 +822,34 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             var expected2 = Vec3.Create(0, -6, -5);
 
             // Test without destination
-            var result3 = Vec3.RotateZ(a2, b2, MathF.PI);
+            var result3 = Vec3.RotateZ(a2, b2, Math.PI);
             AssertEqualApproximately(result3, expected2);
 
             // Test with destination
             var dst2 = Vec3.Create();
-            var result4 = Vec3.RotateZ(a2, b2, MathF.PI, dst2);
+            var result4 = Vec3.RotateZ(a2, b2, Math.PI, dst2);
             Assert.Same(dst2, result4);
             AssertEqualApproximately(result4, expected2);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Set_Length()
         {
-            var a = Vec3.Create(1, 1, 1);
+            var expected = Vec3.Create(8.429313930168536f, 8.429313930168536f, 8.429313930168536f);
             var len = 14.6f;
-            var expectedLength = MathF.Sqrt(3) * (len / MathF.Sqrt(3)); // Should be len
-            var expected = Vec3.Normalize(a);
-            expected = Vec3.MulScalar(expected, len);
 
-            // Test without destination
-            var result1 = Vec3.SetLength(a, len);
-            AssertEqualApproximately(Vec3.Length(result1), len);
+            var result1 = Vec3.SetLength(Vec3.Create(1f,1f,1f), len);
+
+            AssertEqualApproximately(Vec3.Length(result1), len, 1e-06f);
 
             // Test with destination
             var dst = Vec3.Create();
-            var result2 = Vec3.SetLength(a, len, dst);
+            var result2 = Vec3.SetLength(Vec3.Create(1f, 1f, 1f), len, dst);
             Assert.Same(dst, result2);
-            AssertEqualApproximately(Vec3.Length(result2), len);
+            AssertEqualApproximately(Vec3.Length(result2), len, 1e-06f);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Truncate()
         {
             var a = Vec3.Create(8.429313930168536f, 8.429313930168536f, 8.429313930168536f);
@@ -889,7 +884,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float
             AssertEqualApproximately(result4, expected2);
         }
 
-        [TestMethod]
+        [Fact]
         public void Should_Midpoint()
         {
             // Should return the midpoint

@@ -42,27 +42,27 @@ public class Mat4FloatTests
         return true;
     }
 
-    [TestMethod]
+    [Fact]
     public void Create_Should_Initialize_Correctly()
     {
         var tests = new[]
         {
-            new { Args = new float[0], Expected = new float[] {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1}, Expected = new float[] {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2}, Expected = new float[] {1, 2, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3}, Expected = new float[] {1, 2, 3, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4}, Expected = new float[] {1, 2, 3, 4, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5}, Expected = new float[] {1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6}, Expected = new float[] {1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7}, Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 0, 0, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8}, Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9}, Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}, Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}, Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}, Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}, Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 1} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1} },
+            new {Expected = new float[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Args = new float[0]},
+            new {Expected = new float[] {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Args = new float[] {1}},
+            new {Expected = new float[] {1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Args = new float[] {1, 2}},
+            new {Expected = new float[] {1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Args = new float[] {1, 2, 3}},
+            new {Expected = new float[] {1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Args = new float[] {1, 2, 3, 4}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Args = new float[] {1, 2, 3, 4, 5}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Args = new float[] {1, 2, 3, 4, 5, 6}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0}, Args = new float[] {1, 2, 3, 4, 5, 6, 7}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0}, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 0, 0, 0}, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0, 0, 0, 0}, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 0, 0, 0, 0}, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 0, 0, 0}, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0, 0, 0}, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 0}, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}},
+            new {Expected = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0}, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}},
         };
 
         foreach (var test in tests)
@@ -100,7 +100,7 @@ public class Mat4FloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Negate_Should_Negate_Elements()
     {
         var m = CreateTestMatrix();
@@ -118,7 +118,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Add_Should_Add_Matrices()
     {
         var m = CreateTestMatrix();
@@ -136,7 +136,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Multiply_Scalar_Should_Scale_Matrix()
     {
         var m = CreateTestMatrix();
@@ -161,7 +161,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultMulScalarWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Copy_And_Clone_Should_Duplicate_Matrix()
     {
         var m = CreateTestMatrix();
@@ -184,7 +184,7 @@ public class Mat4FloatTests
         Assert.NotSame(m, cloneWithoutDest);
     }
 
-    [TestMethod]
+    [Fact]
     public void Equals_Approximately_Should_Compare_With_Tolerance()
     {
         var epsilon = 1e-6f;
@@ -230,7 +230,7 @@ public class Mat4FloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Equals_Should_Compare_Exactly()
     {
         var genNotEqualMat = (int i) =>
@@ -259,7 +259,7 @@ public class Mat4FloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Set_Should_Assign_Values()
     {
         var expected = Mat4.Create(2, 3, 4, 5, 22, 33, 44, 55, 222, 333, 444, 555, 2222, 3333, 4444, 5555);
@@ -271,7 +271,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Identity_Should_Create_Identity_Matrix()
     {
         var expected = Mat4.Create(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
@@ -283,7 +283,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Transpose_Should_Transpose_Matrix()
     {
         var m = CreateTestMatrix();
@@ -306,7 +306,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Multiply_Should_Multiply_Matrices()
     {
         var m1 = CreateTestMatrix(); // [0,1,2,3; 4,5,6,7; 8,9,10,11; 12,13,14,15]
@@ -335,7 +335,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsApprox(resultMulWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Inverse_Should_Compute_Matrix_Inverse()
     {
         var testCases = new[]
@@ -372,7 +372,7 @@ public class Mat4FloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Determinant_Should_Compute_Correctly()
     {
         // Simple diagonal matrix
@@ -402,7 +402,7 @@ public class Mat4FloatTests
         Assert.Equal(expectedDet3, Mat4.Determinant(m3), 5); // Precision check
     }
 
-    [TestMethod]
+    [Fact]
     public void Set_Translation_Get_Translation_Should_Work()
     {
         var m = CreateTestMatrix();
@@ -430,7 +430,7 @@ public class Mat4FloatTests
         Assert.True(Vec3.Equals(expectedGet, resultGetWithoutDest));
     }
 
-    [TestMethod]
+    [Fact]
     public void Get_Axis_Set_Axis_Should_Work()
     {
         var m = CreateTestMatrix();
@@ -494,7 +494,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultSetZWithoutDest, expectedSetZ));
     }
 
-    [TestMethod]
+    [Fact]
     public void Get_Scaling_Should_Work()
     {
         var m = Mat4.Create(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
@@ -511,7 +511,7 @@ public class Mat4FloatTests
         Assert.True(Vec3.EqualsApproximately(expected, resultWithoutDest));
     }
 
-    [TestMethod]
+    [Fact]
     public void Translation_Translate_Should_Work()
     {
         var translation = Vec3.Create(2, 3, 4);
@@ -540,7 +540,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultTranslateWithoutDest, expectedTranslate));
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotation_X_Rotate_X_Should_Work()
     {
         var angle = 1.23f;
@@ -562,7 +562,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsApprox(resultRotateXWithoutDest, expectedRotateX));
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotation_Y_Rotate_Y_Should_Work()
     {
         var angle = 1.23f;
@@ -584,7 +584,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsApprox(resultRotateYWithoutDest, expectedRotateY));
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotation_Z_Rotate_Z_Should_Work()
     {
         var angle = 1.23f;
@@ -606,7 +606,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsApprox(resultRotateZWithoutDest, expectedRotateZ));
     }
 
-    [TestMethod]
+    [Fact]
     public void Scaling_Scale_Should_Work()
     {
         var scale = Vec3.Create(2, 3, 4);
@@ -632,7 +632,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultScaleMatWithoutDest, expectedScale));
     }
 
-    [TestMethod]
+    [Fact]
     public void From_Mat3_Should_Create_Correct_Matrix()
     {
         var m3 = Mat3.Create(1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -646,7 +646,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Perspective_Should_Create_Correct_Matrix()
     {
         var fov = 0.3f;
@@ -671,7 +671,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Ortho_Should_Create_Correct_Matrix()
     {
         var left = -10.0f;
@@ -695,7 +695,7 @@ public class Mat4FloatTests
         Assert.True(Mat4EqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Ortho_Should_Compute_Correct_Transforms()
     {
 

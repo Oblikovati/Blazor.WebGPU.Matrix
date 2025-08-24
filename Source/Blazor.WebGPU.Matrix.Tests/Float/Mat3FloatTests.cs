@@ -38,21 +38,21 @@ public class Mat3FloatTests
         return Mat3.Equals(a, b);
     }
 
-    [TestMethod]
+    [Fact]
     public void Create_Should_Initialize_Correctly()
     {
         var tests = new[]
         {
-            new { Args = new float[0], Expected = new float[] {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0} },
-            new { Args = new float[] {1}, Expected = new float[] {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0} },
-            new { Args = new float[] {1, 2}, Expected = new float[] {1, 2, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0} },
-            new { Args = new float[] {1, 2, 3}, Expected = new float[] {1, 2, 3, 0, 0, 1, 0, 0, 0, 0, 1, 0} },
-            new { Args = new float[] {1, 2, 3, 4}, Expected = new float[] {1, 2, 3, 0, 4, 0, 0, 0, 0, 0, 1, 0} },
-            new { Args = new float[] {1, 2, 3, 4, 5}, Expected = new float[] {1, 2, 3, 0, 4, 5, 0, 0, 0, 0, 1, 0} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6}, Expected = new float[] {1, 2, 3, 0, 4, 5, 6, 0, 0, 0, 1, 0} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7}, Expected = new float[] {1, 2, 3, 0, 4, 5, 6, 0, 7, 0, 1, 0} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8}, Expected = new float[] {1, 2, 3, 0, 4, 5, 6, 0, 7, 8, 1, 0} },
-            new { Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9}, Expected = new float[] {1, 2, 3, 0, 4, 5, 6, 0, 7, 8, 9, 0} },
+            new { Expected = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, Args = new float[] {}},
+            new { Expected = new float[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, Args = new float[] {1}},
+            new { Expected = new float[] { 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, Args = new float[] {1, 2}},
+            new { Expected = new float[] { 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0 }, Args = new float[] {1, 2, 3}},
+            new { Expected = new float[] { 1, 2, 3, 0, 4, 0, 0, 0, 0, 0, 0 }, Args = new float[] {1, 2, 3, 4}},
+            new { Expected = new float[] { 1, 2, 3, 0, 4, 5, 0, 0, 0, 0, 0 }, Args = new float[] {1, 2, 3, 4, 5}},
+            new { Expected = new float[] { 1, 2, 3, 0, 4, 5, 6, 0, 0, 0, 0 }, Args = new float[] {1, 2, 3, 4, 5, 6}},
+            new { Expected = new float[] { 1, 2, 3, 0, 4, 5, 6, 0, 7, 0, 0 }, Args = new float[] {1, 2, 3, 4, 5, 6, 7}},
+            new { Expected = new float[] { 1, 2, 3, 0, 4, 5, 6, 0, 7, 8, 0 }, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8}},
+            new { Expected = new float[] { 1, 2, 3, 0, 4, 5, 6, 0, 7, 8, 9 }, Args = new float[] {1, 2, 3, 4, 5, 6, 7, 8, 9 }},
         };
 
         foreach (var test in tests)
@@ -83,7 +83,7 @@ public class Mat3FloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Negate_Should_Negate_Elements()
     {
         var m = CreateTestMatrix();
@@ -100,7 +100,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Add_Should_Add_Matrices()
     {
         var m = CreateTestMatrix();
@@ -117,7 +117,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Multiply_Scalar_Should_Scale_Matrix()
     {
         var m = CreateTestMatrix();
@@ -141,7 +141,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultMulScalarWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Copy_And_Clone_Should_Duplicate_Matrix()
     {
         var m = CreateTestMatrix();
@@ -164,7 +164,7 @@ public class Mat3FloatTests
         Assert.NotSame(m, cloneWithoutDest);
     }
 
-    [TestMethod]
+    [Fact]
     public void Equals_Approximately_Should_Compare_With_Tolerance()
     {
         var epsilon = 1e-6f;
@@ -207,7 +207,7 @@ public class Mat3FloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Equals_Should_Compare_Exactly()
     {
         var genNotEqualMat = (int i) =>
@@ -234,7 +234,7 @@ public class Mat3FloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Set_Should_Assign_Values()
     {
         var expected = Mat3.Create(2, 3, 4, 22, 33, 44, 222, 333, 444);
@@ -246,7 +246,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Identity_Should_Create_Identity_Matrix()
     {
         var expected = Mat3.Create(1, 0, 0, 0, 1, 0, 0, 0, 1);
@@ -258,7 +258,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Transpose_Should_Transpose_Matrix()
     {
         var m = CreateTestMatrix();
@@ -279,7 +279,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Multiply_Should_Multiply_Matrices()
     {
         var m1 = CreateTestMatrix(); // [0,1,2; 4,5,6; 8,9,10]
@@ -305,7 +305,7 @@ public class Mat3FloatTests
     }
 
 
-    [TestMethod]
+    [Fact]
     public void Inverse_Should_Compute_Matrix_Inverse()
     {
         var testCases = new[]
@@ -337,7 +337,7 @@ public class Mat3FloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Determinant_Should_Compute_Correctly()
     {
         var m1 = Mat3.Create(2, 1, 3, 1, 2, 1, 3, 1, 2);
@@ -352,7 +352,7 @@ public class Mat3FloatTests
         Assert.Equal(expectedDet2, Mat3.Determinant(m2), 5);
     }
 
-    [TestMethod]
+    [Fact]
     public void Set_Translation_Get_Translation_Should_Work()
     {
         var m = CreateTestMatrix();
@@ -379,7 +379,7 @@ public class Mat3FloatTests
         Assert.True(Vec2.Equals(expectedGet, resultGetWithoutDest));
     }
 
-    [TestMethod]
+    [Fact]
     public void Get_Axis_Set_Axis_Should_Work()
     {
         var m = CreateTestMatrix();
@@ -422,7 +422,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultSetYWithoutDest, expectedSetY));
     }
 
-    [TestMethod]
+    [Fact]
     public void Get_Scaling_Get_3D_Scaling_Should_Work()
     {
         // GetScaling (2D)
@@ -446,7 +446,7 @@ public class Mat3FloatTests
         Assert.True(Vec3.EqualsApproximately(expected3d, result3dWithoutDest));
     }
 
-    [TestMethod]
+    [Fact]
     public void Translation_Translate_Should_Work()
     {
         var translation = Vec2.Create(2, 3);
@@ -471,7 +471,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultTranslateWithoutDest, expectedTranslate));
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotation_Rotate_Should_Work()
     {
         var angle = 1.23f;
@@ -494,7 +494,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsApprox(resultRotateWithoutDest, expectedRotate));
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotation_X_Rotate_X_Should_Work()
     {
         var angle = 1.23f;
@@ -516,7 +516,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsApprox(resultRotateXWithoutDest, expectedRotateX));
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotation_Y_Rotate_Y_Should_Work()
     {
         var angle = 1.23f;
@@ -538,7 +538,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsApprox(resultRotateYWithoutDest, expectedRotateY));
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotation_Z_RotateZ_Should_Work()
     {
         var angle = 1.23f;
@@ -572,7 +572,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsApprox(resultRotateZAliasWithoutDest, expectedRotateZ));
     }
 
-    [TestMethod]
+    [Fact]
     public void Scaling_Scale_Should_Work()
     {
         var scale = Vec2.Create(2, 3);
@@ -596,7 +596,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultScaleMatWithoutDest, expectedScale));
     }
 
-    [TestMethod]
+    [Fact]
     public void Scaling_3D_Scale3D_Should_Work()
     {
         var scale3d = Vec3.Create(2, 3, 4);
@@ -620,7 +620,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultScale3DMatWithoutDest, expectedScale3D));
     }
 
-    [TestMethod]
+    [Fact]
     public void Uniform_Scaling_Uniform_Scale_Should_Work()
     {
         var scale = 2.0f;
@@ -644,7 +644,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultUScaleMatWithoutDest, expectedUScale));
     }
 
-    [TestMethod]
+    [Fact]
     public void Uniform_Scaling_3D_Uniform_Scale_3D_Should_Work()
     {
         var scale = 2.0f;
@@ -668,7 +668,7 @@ public class Mat3FloatTests
         Assert.True(Mat3EqualsExact(resultUScale3DMatWithoutDest, expectedUScale3D));
     }
 
-    [TestMethod]
+    [Fact]
     public void From_Mat4_Should_Extract_Upper_Left()
     {
         var m4 = Mat4.Create(

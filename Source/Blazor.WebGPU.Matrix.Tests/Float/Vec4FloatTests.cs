@@ -23,7 +23,7 @@ public class Vec4FloatTests
         Assert.Equal(a[3], b[3]);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldAdd()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -41,7 +41,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeCeil()
     {
         var input = Vec4.Create(1.1f, -1.1f, 2.9f, -4.2f);
@@ -58,7 +58,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeFloor()
     {
         var input = Vec4.Create(1.1f, -1.1f, 2.9f, -3.1f);
@@ -75,7 +75,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeRound()
     {
         var input = Vec4.Create(1.1f, -1.1f, 2.9f, 0.1f);
@@ -92,7 +92,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldClamp()
     {
         // Test case 1
@@ -124,7 +124,7 @@ public class Vec4FloatTests
         AssertEqual(result2b, expected2);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldEqualsApproximately()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -149,7 +149,7 @@ public class Vec4FloatTests
         Assert.False(Vec4.EqualsApproximately(a, j));
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldEquals()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -166,7 +166,7 @@ public class Vec4FloatTests
         Assert.False(Vec4.Equals(a, f));
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldSubtract()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -184,7 +184,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldSub()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -202,7 +202,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldLerp()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -220,7 +220,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldLerpUnder0()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -238,7 +238,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldLerpOver0()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -256,7 +256,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldMultiplyByScalar()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -273,7 +273,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldScale()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -290,7 +290,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldAddScaled()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -308,7 +308,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldDivideByScalar()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -325,7 +325,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldInverse()
     {
         var a = Vec4.Create(2, 3, -4, -8);
@@ -342,7 +342,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeDotProduct()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -353,7 +353,7 @@ public class Vec4FloatTests
         Assert.Equal(expected, result);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeLength()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -363,7 +363,7 @@ public class Vec4FloatTests
         Assert.Equal(expected, result);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeLengthSquared()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -373,7 +373,7 @@ public class Vec4FloatTests
         Assert.Equal(expected, result);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeLen()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -383,7 +383,7 @@ public class Vec4FloatTests
         Assert.Equal(expected, result);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeLenSq()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -393,7 +393,7 @@ public class Vec4FloatTests
         Assert.Equal(expected, result);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeDistance()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -404,7 +404,7 @@ public class Vec4FloatTests
         Assert.Equal(expected, result);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeDistanceSquared()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -415,7 +415,7 @@ public class Vec4FloatTests
         Assert.Equal(expected, result);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeDist()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -426,7 +426,7 @@ public class Vec4FloatTests
         Assert.Equal(expected, result);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldComputeDistSquared()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -437,7 +437,7 @@ public class Vec4FloatTests
         Assert.Equal(expected, result);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldNormalize()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -455,7 +455,7 @@ public class Vec4FloatTests
         AssertEqualApproximately(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldNegate()
     {
         var a = Vec4.Create(1, 2, 3, -4);
@@ -472,7 +472,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldCopy()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -490,7 +490,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldClone()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -508,7 +508,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldSet()
     {
         var expected = Vec4.Create(2, 3, 4, 5);
@@ -524,7 +524,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldMultiply()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -542,7 +542,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldMul()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -560,7 +560,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldDivide()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -578,7 +578,7 @@ public class Vec4FloatTests
         AssertEqualApproximately(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldDiv()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -596,7 +596,7 @@ public class Vec4FloatTests
         AssertEqualApproximately(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldFromValues()
     {
         var expected = Vec4.Create(1, 2, 3, 4);
@@ -604,7 +604,7 @@ public class Vec4FloatTests
         AssertEqual(result, expected);
     }
 
-    //[TestMethod]
+    //[Fact]
     //public void ShouldTransformByMat4()
     //{
     //    var v = Vec4.Create(1, 2, 3, 4);
@@ -628,7 +628,7 @@ public class Vec4FloatTests
     //    AssertEqual(result2, expected);
     //}
 
-    [TestMethod]
+    [Fact]
     public void ShouldZero()
     {
         var v = Vec4.Zero();
@@ -640,7 +640,7 @@ public class Vec4FloatTests
         AssertEqual(v2, Vec4.Create(0, 0, 0, 0));
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldSetLength()
     {
         var a = Vec4.Create(1, 1, 1, 1);
@@ -658,7 +658,7 @@ public class Vec4FloatTests
         AssertEqualApproximately(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldTruncate_ShortenWhenTooLong()
     {
         var a = Vec4.Create(20, 30, 40, 50);
@@ -681,7 +681,7 @@ public class Vec4FloatTests
         AssertEqualApproximately(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldTruncate_PreserveWhenShorterThanMaxLen()
     {
         var a = Vec4.Create(20, 30, 40, 50);
@@ -699,7 +699,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldMidpoint()
     {
         var a = Vec4.Create(1, 2, 3, 4);
@@ -717,7 +717,7 @@ public class Vec4FloatTests
         AssertEqual(result2, expected);
     }
 
-    [TestMethod]
+    [Fact]
     public void ShouldMidpoint_HandleNegatives()
     {
         var a = Vec4.Create(1, 2, 3, 4);

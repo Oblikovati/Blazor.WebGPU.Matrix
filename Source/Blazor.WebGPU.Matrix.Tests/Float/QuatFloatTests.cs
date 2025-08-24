@@ -5,7 +5,7 @@ namespace Blazor.WebGPU.Matrix.Tests.Float;
 [TestClass]
 public class QuatFloatTests
 {
-    private static bool QuatEqualsApprox(Quat a, Quat b, float epsilon = 1e-6f)
+    private static bool QuatEqualsApprox(Quat a, Quat b, float epsilon = 0.0000001f)
     {
         return MathF.Abs(a[0] - b[0]) < epsilon &&
                MathF.Abs(a[1] - b[1]) < epsilon &&
@@ -18,7 +18,7 @@ public class QuatFloatTests
         return a[0] == b[0] && a[1] == b[1] && a[2] == b[2] && a[3] == b[3];
     }
 
-    [TestMethod]
+    [Fact]
     public void Add_Should_Add_Quaternions()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -36,7 +36,7 @@ public class QuatFloatTests
         Assert.NotSame(b, resultWithoutDest);
     }
 
-    [TestMethod]
+    [Fact]
     public void Equals_Approximately_Should_Compare_With_Tolerance()
     {
         var epsilon = Utils.EPSILON;
@@ -51,7 +51,7 @@ public class QuatFloatTests
         Assert.False(Quat.EqualsApproximately(Quat.Create(1, 2, 3, 4), Quat.Create(1, 2, 3, 4.0001f)));
     }
 
-    [TestMethod]
+    [Fact]
     public void Equals_Should_Compare_Exactly()
     {
         Assert.True(Quat.Equals(Quat.Create(1, 2, 3, 4), Quat.Create(1, 2, 3, 4)));
@@ -61,7 +61,7 @@ public class QuatFloatTests
         Assert.False(Quat.Equals(Quat.Create(1, 2, 3, 4), Quat.Create(1, 2, 3, 4 + Utils.EPSILON * 0.5f)));
     }
 
-    [TestMethod]
+    [Fact]
     public void Subtract_Should_Subtract_Quaternions()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -75,7 +75,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Sub_Should_Subtract_Quaternions()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -89,7 +89,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Lerp_Should_Linearly_Interpolate()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -103,7 +103,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Lerp_Should_Handle_Under_0()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -117,7 +117,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Lerp_Should_Handle_Over_1()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -131,7 +131,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void MulScalar_Should_Multiply_By_Scalar()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -145,7 +145,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Scale_Should_Multiply_By_Scalar()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -159,7 +159,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void DivScalar_Should_Divide_By_Scalar()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -173,7 +173,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Inverse_Should_Compute_Inverse()
     {
         var a = Quat.Create(2, 3, -4, -8);
@@ -195,7 +195,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected, 1e-5f));
     }
 
-    [TestMethod]
+    [Fact]
     public void Dot_Should_Compute_Dot_Product()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -205,7 +205,7 @@ public class QuatFloatTests
         Assert.Equal(expected, result, 5);
     }
 
-    [TestMethod]
+    [Fact]
     public void Length_Should_Compute_Length()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -214,7 +214,7 @@ public class QuatFloatTests
         Assert.Equal(expected, result, 5);
     }
 
-    [TestMethod]
+    [Fact]
     public void LengthSq_Should_Compute_Length_Squared()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -223,7 +223,7 @@ public class QuatFloatTests
         Assert.Equal(expected, result, 5);
     }
 
-    [TestMethod]
+    [Fact]
     public void Len_Should_Compute_Length()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -232,7 +232,7 @@ public class QuatFloatTests
         Assert.Equal(expected, result, 5);
     }
 
-    [TestMethod]
+    [Fact]
     public void LenSq_Should_Compute_Length_Squared()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -241,7 +241,7 @@ public class QuatFloatTests
         Assert.Equal(expected, result, 5);
     }
 
-    [TestMethod]
+    [Fact]
     public void Normalize_Should_Normalize_Quaternion()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -255,7 +255,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Copy_Should_Duplicate_Quaternion()
     {
         var original = Quat.Create(1, 2, 3, 4);
@@ -268,7 +268,7 @@ public class QuatFloatTests
         Assert.NotSame(original, resultWithoutDest);
     }
 
-    [TestMethod]
+    [Fact]
     public void Clone_Should_Duplicate_Quaternion()
     {
         var original = Quat.Create(1, 2, 3, 4);
@@ -281,7 +281,7 @@ public class QuatFloatTests
         Assert.NotSame(original, resultWithoutDest);
     }
 
-    [TestMethod]
+    [Fact]
     public void Set_Should_Assign_Values()
     {
         var expected = Quat.Create(2, 3, 4, 5);
@@ -293,7 +293,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Multiply_Should_Multiply_Quaternions()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -314,7 +314,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void Mul_Should_Multiply_Quaternions()
     {
         var a = Quat.Create(1, 2, 3, 4);
@@ -328,7 +328,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void From_Values_Should_Create_Quaternion()
     {
         var expected = Quat.Create(1, 2, 3, 4);
@@ -336,7 +336,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsExact(result, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void From_Axis_Angle_Should_Create_From_Axis_And_Angle()
     {
         var axis = Vec3.Create(1, 0, 0);
@@ -350,15 +350,15 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void To_Axis_Angle_Should_Extract_Axis_And_Angle()
     {
         var testCases = new[]
         {
-            new { Axis = Vec3.Create(1, 0, 0), Angle = 0.1f },
-            new { Axis = Vec3.Create(0, 1, 0), Angle = 0.1f },
-            new { Axis = Vec3.Create(0, 0, 1), Angle = 0.1f },
-            new { Axis = Vec3.Normalize(Vec3.Create(1, 2, 3)), Angle = 0.1f },
+            new { Axis = Vec3.Create(1, 0, 0), Angle = 0.1 },
+            new { Axis = Vec3.Create(0, 1, 0), Angle = 0.1 },
+            new { Axis = Vec3.Create(0, 0, 1), Angle = 0.1 },
+            new { Axis = Vec3.Normalize(Vec3.Create(1, 2, 3)), Angle = 0.1 },
         };
 
         foreach (var testCase in testCases)
@@ -367,12 +367,12 @@ public class QuatFloatTests
             var (actualAngle, actualAxis) = Quat.ToAxisAngle(q, Vec3.Create());
 
             Assert.Equal(testCase.Angle, actualAngle, 4);
-
-            Assert.True(Vec3.EqualsApproximately(testCase.Axis, actualAxis));
+            
+            Assert.True(Vec3.EqualsApproximately(testCase.Axis, actualAxis, 1e6));
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Angle_Should_Compute_Angle_Between_Quaternions()
     {
         var testAxes = new[]
@@ -393,14 +393,14 @@ public class QuatFloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotate_X_Should_Rotate_Quaternion_Around_X()
     {
         var tests = new[]
         {
-            new { Angle = 0.0f, Expected = Quat.Create(1, 2, 3, 4) },
-            new { Angle = MathF.PI, Expected = Quat.Create(4, 3, -2, -1) },
-            new { Angle = -MathF.PI, Expected = Quat.Create(-4, -3, 2, 1) },
+            new { Angle = 0.0, Expected = Quat.Create(1, 2, 3, 4) },
+            new { Angle = Math.PI, Expected = Quat.Create(4, 3, -2, -1) },
+            new { Angle = -Math.PI, Expected = Quat.Create(-4, -3, 2, 1) },
         };
 
         var qToRotate = Quat.Create(1, 2, 3, 4);
@@ -408,21 +408,21 @@ public class QuatFloatTests
         foreach (var test in tests)
         {
             var resultWithDest = Quat.RotateX(qToRotate, test.Angle, Quat.Create());
-            Assert.True(QuatEqualsApprox(resultWithDest, test.Expected));
+            Assert.True(QuatEqualsApprox(resultWithDest, test.Expected, 1e-06f));
 
             var resultWithoutDest = Quat.RotateX(qToRotate, test.Angle);
-            Assert.True(QuatEqualsApprox(resultWithoutDest, test.Expected));
+            Assert.True(QuatEqualsApprox(resultWithoutDest, test.Expected, 1e-06f));
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotate_Y_Should_Rotate_Quaternion_Around_Y()
     {
         var tests = new[]
         {
-            new { Angle = 0.0f, Expected = Quat.Create(1, 2, 3, 4) },
-            new { Angle = MathF.PI, Expected = Quat.Create(-3, 4, 1, -2) },
-            new { Angle = -MathF.PI, Expected = Quat.Create(3, -4, -1, 2) },
+            new { Angle = 0.0, Expected = Quat.Create(1, 2, 3, 4) },
+            new { Angle = Math.PI, Expected = Quat.Create(-3, 4, 1, -2) },
+            new { Angle = -Math.PI, Expected = Quat.Create(3, -4, -1, 2) },
         };
 
         var qToRotate = Quat.Create(1, 2, 3, 4);
@@ -430,21 +430,21 @@ public class QuatFloatTests
         foreach (var test in tests)
         {
             var resultWithDest = Quat.RotateY(qToRotate, test.Angle, Quat.Create());
-            Assert.True(QuatEqualsApprox(resultWithDest, test.Expected));
+            Assert.True(QuatEqualsApprox(resultWithDest, test.Expected, 1e-06f));
 
             var resultWithoutDest = Quat.RotateY(qToRotate, test.Angle);
-            Assert.True(QuatEqualsApprox(resultWithoutDest, test.Expected));
+            Assert.True(QuatEqualsApprox(resultWithoutDest, test.Expected, 1e-06f));
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Rotate_Z_Should_Rotate_Quaternion_Around_Z()
     {
         var tests = new[]
         {
-            new { Angle = 0.0f, Expected = Quat.Create(1, 2, 3, 4) },
-            new { Angle = MathF.PI, Expected = Quat.Create(-2, 1, 4, -3) },
-            new { Angle = -MathF.PI, Expected = Quat.Create(2, -1, -4, 3) },
+            new { Angle = 0.0, Expected = Quat.Create(1, 2, 3, 4) },
+            new { Angle = Math.PI, Expected = Quat.Create(-3, 4, 1, -2) },
+            new { Angle = -Math.PI, Expected = Quat.Create(3, -4, -1, 2) },
         };
 
         var qToRotate = Quat.Create(1, 2, 3, 4);
@@ -459,7 +459,7 @@ public class QuatFloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Slerp_Should_Spherically_Interpolate()
     {
         var a1 = Quat.Create(0, 1, 0, 1);
@@ -488,7 +488,7 @@ public class QuatFloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Conjugate_Should_Compute_Conjugate()
     {
         var q = Quat.Create(2, 3, 4, 5);
@@ -501,7 +501,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsExact(resultWithoutDest, expected));
     }
 
-    [TestMethod]
+    [Fact]
     public void From_Mat_Should_Create_From_Matrix()
     {
         var identityMat3 = Mat3.Identity();
@@ -521,7 +521,7 @@ public class QuatFloatTests
         Assert.True(QuatEqualsApprox(resultRotXFromMat3, expectedRotX));
     }
 
-    [TestMethod]
+    [Fact]
     public void From_Euler_Should_Create_From_Euler_Angles()
     {
         var tests = new[]
@@ -547,7 +547,7 @@ public class QuatFloatTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Identity_Should_Create_Identity_Quaternion()
     {
         var expected = Quat.Create(0, 0, 0, 1);

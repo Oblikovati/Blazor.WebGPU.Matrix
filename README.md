@@ -12,6 +12,8 @@ This is a port of WGPU-Matrix API Version 3.x which can be found here:
 We tried to keep the API as close as possible but there are some notable differences:
 
 - We adopt C# name conventions: PascalCase for types and methods.
+- The javascript arrays (Float32Array, Float64Array) are available over the property {Type}.Array and should be considered transients.
+- When creating a Type providing a Float32Array, Float64Array the elements are copied and no reference is kept to the original array.
 - The library depends on [SpawnDev.BlazorJS].
 - This library only supports Blazor runtime.
 

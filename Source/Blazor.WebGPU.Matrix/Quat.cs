@@ -1,13 +1,19 @@
-﻿using Microsoft.JSInterop;
+﻿using Blazor.WebGPU.Matrix.Internal;
 using SpawnDev.BlazorJS.JSObjects;
 
 namespace Blazor.WebGPU.Matrix;
 
-public class Quat : Float32Array
+public class Quat : BaseArray<float>
 {
-    public Quat(IJSInProcessObjectReference _ref) : base(_ref) { }
+    /// <summary>
+    /// 
+    /// </summary>
+    private Quat() : base(4) { }
 
-    private Quat() : base(new Float32Array(4).JSRef!) { }
+    /// <summary>
+    /// Returns a JavaScript Float32Array
+    /// </summary>
+    public override TypedArray<float> Array => new Float32Array(_elements);
 
     /// <summary>
     /// Creates a quat4; may be called with x, y, z, w to set initial values.
@@ -43,16 +49,16 @@ public class Quat : Float32Array
     /// <summary>
     /// Sets a quaternion from the given angle and axis, then returns it.
     /// </summary>
-    public static Quat FromAxisAngle(Vec3 axis, float angleInRadians, Quat? dst = default)
+    public static Quat FromAxisAngle(Vec3 axis, double angleInRadians, Quat? dst = default)
     {
         dst = dst ?? new Quat();
-        var halfAngle = angleInRadians * 0.5f;
-        var s = MathF.Sin(halfAngle);
+        var halfAngle = angleInRadians * 0.5;
+        var s = Math.Sin(halfAngle);
 
-        dst[0] = s * axis[0];
-        dst[1] = s * axis[1];
-        dst[2] = s * axis[2];
-        dst[3] = MathF.Cos(halfAngle);
+        dst[0] = (float) (s * axis[0]);
+        dst[1] = (float) (s * axis[1]);
+        dst[2] = (float) (s * axis[2]);
+        dst[3] = (float) (Math.Cos(halfAngle));
 
         return dst;
     }
@@ -60,17 +66,17 @@ public class Quat : Float32Array
     /// <summary>
     /// Gets the rotation axis and angle
     /// </summary>
-    public static (float angle, Vec3 axis) ToAxisAngle(Quat q, Vec3? dst = default)
+    public static (double angle, Vec3 axis) ToAxisAngle(Quat q, Vec3? dst = default)
     {
         dst = dst ?? Vec3.Create();
 
-        var angle = MathF.Acos(q[3]) * 2;
-        var s = MathF.Sin(angle * 0.5f);
+        var angle = Math.Acos(q[3]) * 2;
+        var s = Math.Sin(angle * 0.5);
         if (s > Utils.EPSILON)
         {
-            dst[0] = q[0] / s;
-            dst[1] = q[1] / s;
-            dst[2] = q[2] / s;
+            dst[0] = (float) (q[0] / s);
+            dst[1] = (float) (q[1] / s);
+            dst[2] = (float) (q[2] / s);
         }
         else
         {
@@ -123,23 +129,23 @@ public class Quat : Float32Array
     /// <summary>
     /// Rotates the given quaternion around the X axis by the given angle.
     /// </summary>
-    public static Quat RotateX(Quat q, float angleInRadians, Quat? dst = default)
+    public static Quat RotateX(Quat q, double angleInRadians, Quat? dst = default)
     {
         dst = dst ?? new Quat();
-        var halfAngle = angleInRadians * 0.5f;
+        var halfAngle = angleInRadians * 0.5;
 
         var qx = q[0];
         var qy = q[1];
         var qz = q[2];
         var qw = q[3];
 
-        var bx = MathF.Sin(halfAngle);
-        var bw = MathF.Cos(halfAngle);
+        var bx = Math.Sin(halfAngle);
+        var bw = Math.Cos(halfAngle);
 
-        dst[0] = qx * bw + qw * bx;
-        dst[1] = qy * bw + qz * bx;
-        dst[2] = qz * bw - qy * bx;
-        dst[3] = qw * bw - qx * bx;
+        dst[0] = (float) (qx * bw + qw * bx);
+        dst[1] = (float) (qy * bw + qz * bx);
+        dst[2] = (float) (qz * bw - qy * bx);
+        dst[3] = (float) (qw * bw - qx * bx);
 
         return dst;
     }
@@ -147,23 +153,23 @@ public class Quat : Float32Array
     /// <summary>
     /// Rotates the given quaternion around the Y axis by the given angle.
     /// </summary>
-    public static Quat RotateY(Quat q, float angleInRadians, Quat? dst = default)
+    public static Quat RotateY(Quat q, double angleInRadians, Quat? dst = default)
     {
         dst = dst ?? new Quat();
-        var halfAngle = angleInRadians * 0.5f;
+        var halfAngle = angleInRadians * 0.5;
 
         var qx = q[0];
         var qy = q[1];
         var qz = q[2];
         var qw = q[3];
 
-        var by = MathF.Sin(halfAngle);
-        var bw = MathF.Cos(halfAngle);
+        var by = Math.Sin(halfAngle);
+        var bw = Math.Cos(halfAngle);
 
-        dst[0] = qx * bw - qz * by;
-        dst[1] = qy * bw + qw * by;
-        dst[2] = qz * bw + qx * by;
-        dst[3] = qw * bw - qy * by;
+        dst[0] = (float) (qx * bw - qz * by);
+        dst[1] = (float) (qy * bw + qw * by);
+        dst[2] = (float) (qz * bw + qx * by);
+        dst[3] = (float) (qw * bw - qy * by);
 
         return dst;
     }
@@ -171,23 +177,23 @@ public class Quat : Float32Array
     /// <summary>
     /// Rotates the given quaternion around the Z axis by the given angle.
     /// </summary>
-    public static Quat RotateZ(Quat q, float angleInRadians, Quat? dst = default)
+    public static Quat RotateZ(Quat q, double angleInRadians, Quat? dst = default)
     {
         dst = dst ?? new Quat();
-        var halfAngle = angleInRadians * 0.5f;
+        var halfAngle = angleInRadians * 0.5;
 
         var qx = q[0];
         var qy = q[1];
         var qz = q[2];
         var qw = q[3];
 
-        var bz = MathF.Sin(halfAngle);
-        var bw = MathF.Cos(halfAngle);
+        var bz = Math.Sin(halfAngle);
+        var bw = Math.Cos(halfAngle);
 
-        dst[0] = qx * bw + qy * bz;
-        dst[1] = qy * bw - qx * bz;
-        dst[2] = qz * bw + qw * bz;
-        dst[3] = qw * bw - qz * bz;
+        dst[0] = (float) (qx * bw + qy * bz);
+        dst[1] = (float) (qy * bw - qx * bz);
+        dst[2] = (float) (qz * bw + qw * bz);
+        dst[3] = (float) (qw * bw - qz * bz);
 
         return dst;
     }

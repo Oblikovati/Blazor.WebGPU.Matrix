@@ -1,13 +1,19 @@
-﻿using Microsoft.JSInterop;
+﻿using Blazor.WebGPU.Matrix.Internal;
 using SpawnDev.BlazorJS.JSObjects;
 
 namespace Blazor.WebGPU.Matrix;
 
-public class Vec4 : Float32Array
+public class Vec4 : BaseArray<float>
 {
-    public Vec4(IJSInProcessObjectReference _ref) : base(_ref) { }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Vec4() : base(4) { }
 
-    private Vec4() : base(new Float32Array(4).JSRef!) { }
+    /// <summary>
+    /// Returns a JavaScript Float32Array
+    /// </summary>
+    public override TypedArray<float> Array => new Float32Array(_elements);
 
     /// <summary>
     /// Creates a vec4; may be called with x, y, z, w to set initial values.

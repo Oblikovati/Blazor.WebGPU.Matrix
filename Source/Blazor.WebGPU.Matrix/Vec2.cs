@@ -1,13 +1,25 @@
-﻿using Microsoft.JSInterop;
+﻿using Blazor.WebGPU.Matrix.Internal;
 using SpawnDev.BlazorJS.JSObjects;
 
 namespace Blazor.WebGPU.Matrix;
 
-public class Vec2 : Float32Array
+public class Vec2 : BaseArray<float>
 {
-    public Vec2(IJSInProcessObjectReference _ref) : base(_ref) { }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Vec2() : base(2) { }
 
-    private Vec2() : base(new Float32Array(2).JSRef!) { }
+    private Vec2(float x, float y) : base(2)
+    {
+        _elements[0] = x;
+        _elements[1] = y;
+    }
+
+    /// <summary>
+    /// Returns a JavaScript Float32Array
+    /// </summary>
+    public override TypedArray<float> Array => new Float32Array(_elements);
 
     /// <summary>
     /// Adds two vectors; assumes a and b have the same dimension.
@@ -40,11 +52,11 @@ public class Vec2 : Float32Array
         var ay = a[1];
         var bx = b[0];
         var by = b[1];
-        var mag1 = MathF.Sqrt(ax * ax + ay * ay);
-        var mag2 = MathF.Sqrt(bx * bx + by * by);
+        var mag1 = Math.Sqrt(ax * ax + ay * ay);
+        var mag2 = Math.Sqrt(bx * bx + by * by);
         var mag = mag1 * mag2;
         var cosine = mag != 0 ? Dot(a, b) / mag : 0;
-        return MathF.Acos(cosine);
+        return (float) Math.Acos(cosine);
     }
 
     /// <summary>
@@ -88,9 +100,9 @@ public class Vec2 : Float32Array
     /// <summary>
     /// Creates a Vec2; may be called with x, y to set initial values.
     /// </summary>
-    public static Vec2 Create(float x = 0, float y = 0)
+    public static Vec2 Create(float? x = 0, float? y = 0)
     {
-        return new Vec2();
+        return new Vec2(x ?? 0, y ?? 0);
     }
 
     /// <summary>
@@ -133,7 +145,7 @@ public class Vec2 : Float32Array
     /// <summary>
     /// Computes the square of the distance between 2 points (same as distanceSq)
     /// </summary>
-    public static double DistSq(Vec2 a, Vec2 b) => DistanceSq(a, b);
+    public static float DistSq(Vec2 a, Vec2 b) => DistanceSq(a, b);
 
     /// <summary>
     /// Divides a vector by another vector (component-wise). (same as divide)
@@ -235,12 +247,12 @@ public class Vec2 : Float32Array
     /// <summary>
     /// Computes the length of vector (same as length)
     /// </summary>
-    public static double Len(Vec2 v) => Length(v);
+    public static float Len(Vec2 v) => Length(v);
 
     /// <summary>
     /// Computes the length of vector
     /// </summary>
-    public new static double Length(Vec2 v)
+    public static float Length(Vec2 v)
     {
         var v0 = v[0];
         var v1 = v[1];
@@ -326,8 +338,8 @@ public class Vec2 : Float32Array
     public static Vec2 MulScalar(Vec2 v, float k, Vec2? dst = default)
     {
         dst = dst ?? new Vec2();
-        dst[0] = v[0] * k;
-        dst[1] = v[1] * k;
+        dst[0] = (float) ((double)v[0] * (double)k);
+        dst[1] = (float) ((double)v[1] * (double)k);
         return dst;
     }
 
@@ -361,12 +373,12 @@ public class Vec2 : Float32Array
         dst = dst ?? new Vec2();
         var v0 = v[0];
         var v1 = v[1];
-        var len = MathF.Sqrt(v0 * v0 + v1 * v1);
+        var len = Math.Sqrt(v0 * v0 + v1 * v1);
 
-        if (len > 0.00001)
+        if (len > float.Epsilon)
         {
-            dst[0] = v0 / len;
-            dst[1] = v1 / len;
+            dst[0] =(float) (v0 / len);
+            dst[1] =(float) (v1 / len);
         }
         else
         {
@@ -440,7 +452,7 @@ public class Vec2 : Float32Array
     public static Vec2 SetLength(Vec2 a, float len, Vec2? dst = default)
     {
         dst = dst ?? new Vec2();
-        Normalize(a, dst);
+        dst = Normalize(a, dst);
         return MulScalar(dst, len, dst);
     }
 

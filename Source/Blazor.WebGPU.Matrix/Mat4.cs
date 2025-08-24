@@ -1,28 +1,31 @@
-﻿using Microsoft.JSInterop;
+﻿using Blazor.WebGPU.Matrix.Internal;
 using SpawnDev.BlazorJS.JSObjects;
 
 namespace Blazor.WebGPU.Matrix;
 
-public class Mat4 : Float32Array
+public class Mat4 : BaseArray<float>
 {
-    public Mat4(IJSInProcessObjectReference _ref) : base(_ref) { }
+    public Mat4() : base(16) { }
 
-    private Mat4() : base(new Float32Array(16).JSRef!) { }
+    /// <summary>
+    /// Returns a JavaScript Float32Array
+    /// </summary>
+    public override TypedArray<float> Array => new Float32Array(_elements);
 
     /// <summary>
     /// Create a Mat4 from values
     /// </summary>
     public static Mat4 Create(
-        float v0 = 1, float v1 = 0, float v2 = 0, float v3 = 0,
-        float v4 = 0, float v5 = 1, float v6 = 0, float v7 = 0,
-        float v8 = 0, float v9 = 0, float v10 = 1, float v11 = 0,
-        float v12 = 0, float v13 = 0, float v14 = 0, float v15 = 1)
+        float v0 = 0, float v1 = 0, float v2 = 0, float v3 = 0,
+        float v4 = 0, float v5 = 0, float v6 = 0, float v7 = 0,
+        float v8 = 0, float v9 = 0, float v10 = 0, float v11 = 0,
+        float v12 = 0, float v13 = 0, float v14 = 0, float v15 = 0)
     {
         var dst = new Mat4();
-        dst[0] = v0; dst[1] = v1; dst[2] = v2; dst[3] = v3;
-        dst[4] = v4; dst[5] = v5; dst[6] = v6; dst[7] = v7;
-        dst[8] = v8; dst[9] = v9; dst[10] = v10; dst[11] = v11;
-        dst[12] = v12; dst[13] = v13; dst[14] = v14; dst[15] = v15;
+        dst[0] = v0;    dst[1] = v1;    dst[2] = v2;    dst[3] = v3;
+        dst[4] = v4;    dst[5] = v5;    dst[6] = v6;    dst[7] = v7;
+        dst[8] = v8;    dst[9] = v9;    dst[10] = v10;  dst[11] = v11;
+        dst[12] = v12;  dst[13] = v13;  dst[14] = v14;  dst[15] = v15;
         return dst;
     }
 

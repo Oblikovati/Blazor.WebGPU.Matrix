@@ -1,24 +1,33 @@
-﻿using Microsoft.JSInterop;
+﻿using Blazor.WebGPU.Matrix.Internal;
 using SpawnDev.BlazorJS.JSObjects;
 
 namespace Blazor.WebGPU.Matrix;
 
-public class Vec3 : Float32Array
+public class Vec3 : BaseArray<float>
 {
-    public Vec3(IJSInProcessObjectReference _ref) : base(_ref) { }
+    /// <summary>
+    /// 
+    /// </summary>
+    public Vec3() : base(3) { }
 
-    private Vec3() : base(new Float32Array(3).JSRef!) { }
+    private Vec3(float x, float y, float z) : base(3) 
+    {
+        _elements[0] = x;
+        _elements[1] = y;
+        _elements[2] = z;
+    }
+
+    /// <summary>
+    /// Returns a JavaScript Float32Array
+    /// </summary>
+    public override TypedArray<float> Array => new Float32Array(_elements);
 
     /// <summary>
     /// Creates a vec3; may be called with x, y, z to set initial values.
     /// </summary>
-    public static Vec3 Create(float x = 0, float y = 0, float z = 0)
+    public static Vec3 Create(float? x = 0, float? y = 0, float? z = 0)
     {
-        var dst = new Vec3();
-        dst[0] = x;
-        dst[1] = y;
-        dst[2] = z;
-        return dst;
+        return new Vec3(x ?? 0, y ?? 0, z ?? 0);
     }
 
     /// <summary>
@@ -121,11 +130,11 @@ public class Vec3 : Float32Array
         var bx = b[0];
         var by = b[1];
         var bz = b[2];
-        var mag1 = MathF.Sqrt(ax * ax + ay * ay + az * az);
-        var mag2 = MathF.Sqrt(bx * bx + by * by + bz * bz);
+        var mag1 = Math.Sqrt(ax * ax + ay * ay + az * az);
+        var mag2 = Math.Sqrt(bx * bx + by * by + bz * bz);
         var mag = mag1 * mag2;
         var cosine = mag != 0 ? Dot(a, b) / mag : 0;
-        return MathF.Acos(cosine);
+        return (float) Math.Acos(cosine);
     }
 
     /// <summary>
@@ -148,11 +157,11 @@ public class Vec3 : Float32Array
     /// <summary>
     /// Check if 2 vectors are approximately equal
     /// </summary>
-    public static bool EqualsApproximately(Vec3 a, Vec3 b)
+    public static bool EqualsApproximately(Vec3 a, Vec3 b, double precision = Utils.EPSILON)
     {
-        return MathF.Abs(a[0] - b[0]) < Utils.EPSILON &&
-               MathF.Abs(a[1] - b[1]) < Utils.EPSILON &&
-               MathF.Abs(a[2] - b[2]) < Utils.EPSILON;
+        return MathF.Abs(a[0] - b[0]) < precision &&
+               MathF.Abs(a[1] - b[1]) < precision &&
+               MathF.Abs(a[2] - b[2]) < precision;
     }
 
     /// <summary>
@@ -160,7 +169,7 @@ public class Vec3 : Float32Array
     /// </summary>
     public static bool Equals(Vec3 a, Vec3 b)
     {
-        return a[0] == b[0] && a[1] == b[1] && a[2] == b[2];
+        return Math.Abs(a[0] - (double)b[0]) < float.Epsilon && Math.Abs( a[1] - (double)b[1]) < float.Epsilon && Math.Abs(a[2] - (double)b[2]) < float.Epsilon;
     }
 
     public override bool Equals(object? obj)
@@ -227,12 +236,12 @@ public class Vec3 : Float32Array
     /// <summary>
     /// Multiplies a vector by a scalar.
     /// </summary>
-    public static Vec3 MulScalar(Vec3 v, float k, Vec3? dst = default)
+    public static Vec3 MulScalar(Vec3 v, double k, Vec3? dst = default)
     {
         dst = dst ?? new Vec3();
-        dst[0] = v[0] * k;
-        dst[1] = v[1] * k;
-        dst[2] = v[2] * k;
+        dst[0] = (float) (v[0] * k);
+        dst[1] =(float) (v[1] * k);
+        dst[2] = (float) (v[2] * k);
         return dst;
     }
 
@@ -365,13 +374,13 @@ public class Vec3 : Float32Array
         var v0 = v[0];
         var v1 = v[1];
         var v2 = v[2];
-        var len = MathF.Sqrt(v0 * v0 + v1 * v1 + v2 * v2);
+        var len = Math.Sqrt(v0 * v0 + v1 * v1 + v2 * v2);
 
         if (len > 0.00001f)
         {
-            dst[0] = v0 / len;
-            dst[1] = v1 / len;
-            dst[2] = v2 / len;
+            dst[0] =(float) (v0 / len);
+            dst[1] =(float) (v1 / len);
+            dst[2] =(float) (v2 / len);
         }
         else
         {
@@ -449,15 +458,15 @@ public class Vec3 : Float32Array
     /// <summary>
     /// Creates a random vector
     /// </summary>
-    public static Vec3 Random(float scale = 1, Vec3? dst = default)
+    public static Vec3 Random(double scale = 1, Vec3? dst = default)
     {
         dst = dst ?? new Vec3();
-        var angle = (float)new Random().NextDouble() * 2 * MathF.PI;
-        var z = (float)new Random().NextDouble() * 2 - 1;
-        var zScale = MathF.Sqrt(1 - z * z) * scale;
-        dst[0] = MathF.Cos(angle) * zScale;
-        dst[1] = MathF.Sin(angle) * zScale;
-        dst[2] = z * scale;
+        var angle = new Random().NextDouble() * 2 * Math.PI;
+        var z = new Random().NextDouble() * 2 - 1;
+        var zScale = Math.Sqrt(1 - z * z) * scale;
+        dst[0] = (float) (Math.Cos(angle) * zScale);
+        dst[1] = (float) (Math.Sin(angle) * zScale);
+        dst[2] = (float) (z * scale);
         return dst;
     }
 
@@ -600,11 +609,11 @@ public class Vec3 : Float32Array
     /// <summary>
     /// Rotate a 3D vector around the x-axis
     /// </summary>
-    public static Vec3 RotateX(Vec3 a, Vec3 b, float rad, Vec3? dst = default)
+    public static Vec3 RotateX(Vec3 a, Vec3 b, double rad, Vec3? dst = default)
     {
         dst = dst ?? new Vec3();
-        var p = new float[3];
-        var r = new float[3];
+        var p = new double[3];
+        var r = new double[3];
 
         // Translate point to the origin
         p[0] = a[0] - b[0];
@@ -613,13 +622,13 @@ public class Vec3 : Float32Array
 
         // Perform rotation
         r[0] = p[0];
-        r[1] = p[1] * MathF.Cos(rad) - p[2] * MathF.Sin(rad);
-        r[2] = p[1] * MathF.Sin(rad) + p[2] * MathF.Cos(rad);
+        r[1] = (p[1] * Math.Cos(rad) - p[2] * Math.Sin(rad));
+        r[2] = (p[1] * Math.Sin(rad) + p[2] * Math.Cos(rad));
 
         // Translate to correct position
-        dst[0] = r[0] + b[0];
-        dst[1] = r[1] + b[1];
-        dst[2] = r[2] + b[2];
+        dst[0] = (float) r[0] + b[0];
+        dst[1] = (float) r[1] + b[1];
+        dst[2] = (float) r[2] + b[2];
 
         return dst;
     }
@@ -627,11 +636,11 @@ public class Vec3 : Float32Array
     /// <summary>
     /// Rotate a 3D vector around the y-axis
     /// </summary>
-    public static Vec3 RotateY(Vec3 a, Vec3 b, float rad, Vec3? dst = default)
+    public static Vec3 RotateY(Vec3 a, Vec3 b, double rad, Vec3? dst = default)
     {
         dst = dst ?? new Vec3();
-        var p = new float[3];
-        var r = new float[3];
+        var p = new double[3];
+        var r = new double[3];
 
         // Translate point to the origin
         p[0] = a[0] - b[0];
@@ -639,14 +648,14 @@ public class Vec3 : Float32Array
         p[2] = a[2] - b[2];
 
         // Perform rotation
-        r[0] = p[2] * MathF.Sin(rad) + p[0] * MathF.Cos(rad);
+        r[0] = p[2] * Math.Sin(rad) + p[0] * Math.Cos(rad);
         r[1] = p[1];
-        r[2] = p[2] * MathF.Cos(rad) - p[0] * MathF.Sin(rad);
+        r[2] = p[2] * Math.Cos(rad) - p[0] * Math.Sin(rad);
 
         // Translate to correct position
-        dst[0] = r[0] + b[0];
-        dst[1] = r[1] + b[1];
-        dst[2] = r[2] + b[2];
+        dst[0] = (float) r[0] + b[0];
+        dst[1] = (float) r[1] + b[1];
+        dst[2] = (float) r[2] + b[2];
 
         return dst;
     }
@@ -654,11 +663,11 @@ public class Vec3 : Float32Array
     /// <summary>
     /// Rotate a 3D vector around the z-axis
     /// </summary>
-    public static Vec3 RotateZ(Vec3 a, Vec3 b, float rad, Vec3? dst = default)
+    public static Vec3 RotateZ(Vec3 a, Vec3 b, double rad, Vec3? dst = default)
     {
         dst = dst ?? new Vec3();
-        var p = new float[3];
-        var r = new float[3];
+        var p = new double[3];
+        var r = new double[3];
 
         // Translate point to the origin
         p[0] = a[0] - b[0];
@@ -666,14 +675,14 @@ public class Vec3 : Float32Array
         p[2] = a[2] - b[2];
 
         // Perform rotation
-        r[0] = p[0] * MathF.Cos(rad) - p[1] * MathF.Sin(rad);
-        r[1] = p[0] * MathF.Sin(rad) + p[1] * MathF.Cos(rad);
+        r[0] = p[0] * Math.Cos(rad) - p[1] * Math.Sin(rad);
+        r[1] = p[0] * Math.Sin(rad) + p[1] * Math.Cos(rad);
         r[2] = p[2];
 
         // Translate to correct position
-        dst[0] = r[0] + b[0];
-        dst[1] = r[1] + b[1];
-        dst[2] = r[2] + b[2];
+        dst[0] = (float) r[0] + b[0];
+        dst[1] = (float) r[1] + b[1];
+        dst[2] = (float) r[2] + b[2];
 
         return dst;
     }

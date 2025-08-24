@@ -1,27 +1,24 @@
-﻿using Microsoft.JSInterop;
+﻿using Blazor.WebGPU.Matrix.Internal;
 using SpawnDev.BlazorJS.JSObjects;
 
 namespace Blazor.WebGPU.Matrix;
 
-public class Mat3 : Float32Array
+public class Mat3 : BaseArray<float>
 {
-    public Mat3(IJSInProcessObjectReference _ref) : base(_ref) { }
+    private Mat3() : base(12) { }
 
-    private Mat3() : base(new Float32Array(12).JSRef!)
-    {
-        // Initialize padding elements to 0
-        this[3] = 0;
-        this[7] = 0;
-        this[11] = 0;
-    }
-
+    /// <summary>
+    /// Returns a JavaScript Float32Array
+    /// </summary>
+    public override TypedArray<float> Array => new Float32Array(_elements);
+    
     /// <summary>
     /// Create a Mat3 from values
     /// </summary>
     public static Mat3 Create(
-        float v0 = 1, float v1 = 0, float v2 = 0,
-        float v3 = 0, float v4 = 1, float v5 = 0,
-        float v6 = 0, float v7 = 0, float v8 = 1)
+        float v0 = 0, float v1 = 0, float v2 = 0,
+        float v3 = 0, float v4 = 0, float v5 = 0,
+        float v6 = 0, float v7 = 0, float v8 = 0)
     {
         var dst = new Mat3();
         dst[0] = v0; dst[1] = v1; dst[2] = v2;
